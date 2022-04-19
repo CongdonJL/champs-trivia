@@ -54,8 +54,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/questions", function(req, res) {
-  console.log('57');
-  db.collection(QUESTIONS_COLLECTION).find({}).toArray(function(err, docs) {
+  db.collection(QUESTIONS_COLLECTION).find({question: 'test'}).toArray(function(err, docs) {
     if (err) {
       console.log(err.message);
       handleError(res, err.message, "Failed to get contacts.");
