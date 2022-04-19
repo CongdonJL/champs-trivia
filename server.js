@@ -62,6 +62,10 @@ app.get("/questions", function(req, res) {
 app.post("/missing", function(req, res) {
   var question = req.query.question;
 
+  if (!(question)) {
+    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+  }
+
   db.collection(MISSING_QUESTIONS_COLLECTION).insertOne({Question: question}, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to create new contact.");
