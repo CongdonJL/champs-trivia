@@ -54,6 +54,7 @@ app.get("/questions", function(req, res) {
 
 app.post("/questions", function(req, res) {
   var question = req.body;
+  console.log(req);
 
   if (!(req.body.question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
