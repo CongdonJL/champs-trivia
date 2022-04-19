@@ -53,14 +53,14 @@ app.get("/questions", function(req, res) {
 });
 
 app.post("/questions", function(req, res) {
-  var question = req.body;
+  var question = req.query.question;
   console.log(req.body);
 
-  if (!(req.body.question)) {
+  if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
   }
 
- db.collection(QUESTIONS_COLLECTION).find({Question: req.body.question}).toArray(function(err, result) {
+ db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
     if (err) {
       console.log(err.message);
       handleError(res, err.message, "No Answer");
