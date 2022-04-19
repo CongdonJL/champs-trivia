@@ -30,7 +30,7 @@ MongoClient.connect(uri, function(err, client) {
   // client.close();
 
   // Save database object from the callback for reuse.
-  db = database;
+  db = client;
   console.log("Database connection ready");
 
   // Initialize the app.
