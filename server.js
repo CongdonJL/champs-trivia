@@ -32,15 +32,6 @@ mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
   });
 });
 
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const uri = "mongodb+srv://JCongdon:IVUThQCCmnoXUeHe@cluster0.faa1c.mongodb.net/questions?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true});
-// client.connect(err => {
-//   const collection = client.db("questions").collection("questionsColletion");
-//   // perform actions on the collection object
-//   client.close();
-// });
-
 // questions API ROUTES BELOW
 
 // Generic error handler used by all endpoints.
@@ -55,9 +46,30 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/questions", function(req, res) {
+  db.collection(QUESTIONS_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contacts.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
 });
 
 app.post("/questions", function(req, res) {
+  var newQuestion = req.body;
+  newQuestion.createDate = new Date();
+
+  if (!(req.body.question && req.body.answer)) {
+    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+  }
+
+  db.collection(QUESTIONS_COLLECTION).insertOne(newQuestion, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to create new Question.");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
+  });
 });
 
 /*  "/questions/:question"
@@ -76,28 +88,5 @@ app.delete("/questions/:id", function(req, res) {
 });
 
 
-app.post("/questions", function(req, res) {
-  var newQuestion = req.body;
-  newQuestion.createDate = new Date();
 
-  if (!(req.body.question && req.body.answer)) {
-    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
-  }
 
-  db.collection(QUESTIONS_COLLECTION).insertOne(newQuestion, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new Question.");
-    } else {
-      res.status(201).json(doc.ops[0]);
-    }
-  });
-});
-app.get("/questions", function(req, res) {
-  db.collection(QUESTIONS_COLLECTION).find({}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get contacts.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
-});
