@@ -41,20 +41,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/questions", function(req, res) {
-
-  db.collection(QUESTIONS_COLLECTION).find().toArray(function(err, docs) {
-    if (err) {
-      console.log(err.message);
-      handleError(res, err.message, "Failed to get contacts.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
-});
-
-app.post("/questions", function(req, res) {
   var question = req.query.question;
-  console.log(req.body);
 
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
