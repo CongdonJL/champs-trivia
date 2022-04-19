@@ -5,6 +5,8 @@ var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
 var QUESTIONS_COLLECTION = "questionsCollection";
+var MISSING_QUESTIONS_COLLECTION = "missingQuestionsCollection";
+
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -55,6 +57,12 @@ app.get("/questions", function(req, res) {
       res.status(200).json(result);
     }
   });
+});
+
+app.post("/missing", function(req, res) {
+  var question = req.query.question;
+
+  db.collection(MISSING_QUESTIONS_COLLECTION).insertOne({Question: question});
 });
 
 
