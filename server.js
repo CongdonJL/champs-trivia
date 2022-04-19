@@ -62,7 +62,13 @@ app.get("/questions", function(req, res) {
 app.post("/missing", function(req, res) {
   var question = req.query.question;
 
-  db.collection(MISSING_QUESTIONS_COLLECTION).insertOne({Question: question});
+  db.collection(MISSING_QUESTIONS_COLLECTION).insertOne({Question: question}, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to create new contact.");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
+  });
 });
 
 
