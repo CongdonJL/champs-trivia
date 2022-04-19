@@ -54,6 +54,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/questions", function(req, res) {
+  console.log('57');
   db.collection(QUESTIONS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       console.log(err.message);
