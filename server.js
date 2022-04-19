@@ -32,7 +32,6 @@ MongoClient.connect(uri, function(err, client) {
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
-  console.log("here");
   res.status(code || 500).json({"error": message});
 }
 
@@ -55,7 +54,7 @@ app.get("/questions", function(req, res) {
 
 app.post("/questions", function(req, res) {
   var question = req.body;
-  console.log(req);
+  console.log(req.body);
 
   if (!(req.body.question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
