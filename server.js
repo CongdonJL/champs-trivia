@@ -46,13 +46,22 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/questions", function(req, res) {
-  db.collection(QUESTIONS_COLLECTION).find({}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get contacts.");
+  // db.collection(QUESTIONS_COLLECTION).find({}).toArray(function(err, docs) {
+  //   if (err) {
+  //     handleError(res, err.message, "Failed to get contacts.");
+  //   } else {
+  //     res.status(200).json(docs);
+  //   }
+  // });
+
+    const result = await client.db("questions").collection("questionsColletion").findOne({ name: 'test' });
+    if (result) {
+        // console.log(`Found a listing in the collection with the name '${}':`);
+        console.log(result);
     } else {
-      res.status(200).json(docs);
+        console.log(`No listings found`);
     }
-  });
+
 });
 
 app.post("/questions", function(req, res) {
