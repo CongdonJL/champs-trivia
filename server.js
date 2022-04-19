@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var QUESTIONS_COLLECTION = "questions";
+var QUESTIONS_COLLECTION = "questionsCollection";
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -89,6 +89,15 @@ app.post("/questions", function(req, res) {
       handleError(res, err.message, "Failed to create new Question.");
     } else {
       res.status(201).json(doc.ops[0]);
+    }
+  });
+});
+app.get("/questions", function(req, res) {
+  db.collection(QUESTIONS_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contacts.");
+    } else {
+      res.status(200).json(docs);
     }
   });
 });
