@@ -15,7 +15,7 @@ var db;
 var MONGODB_URI = "mongodb+srv://JCongdon:IVUThQCCmnoXUeHe@cluster0.faa1c.mongodb.net/questions?retryWrites=true&w=majority";
 
 // Connect to the database before starting the application server.
-Mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
+mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
