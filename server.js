@@ -10,16 +10,24 @@ var app = express();
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
-var MONGODB_URI = "mongodb+srv://JCongdon:IVUThQCCmnoXUeHe@cluster0.faa1c.mongodb.net/questions?retryWrites=true&w=majority";
+// // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
+// var db;
+// var MONGODB_URI = "mongodb+srv://JCongdon:IVUThQCCmnoXUeHe@cluster0.faa1c.mongodb.net/questions?retryWrites=true&w=majority";
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+// mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
+//   if (err) {
+//     console.log(err);
+//     process.exit(1);
+//   }
+
+
+var MongoClient = require('mongodb').MongoClient;
+var uri = "mongodb://JCongdon:IVUThQCCmnoXUeHe@cluster0-shard-00-00.faa1c.mongodb.net:27017,cluster0-shard-00-01.faa1c.mongodb.net:27017,cluster0-shard-00-02.faa1c.mongodb.net:27017/questions?ssl=true&replicaSet=atlas-b9yuoo-shard-0&authSource=admin&retryWrites=true&w=majority";
+MongoClient.connect(uri, function(err, client) {
+  const collection = client.db("questions").collection("questionsCollection");
+  // perform actions on the collection object
+  // client.close();
 
   // Save database object from the callback for reuse.
   db = database;
