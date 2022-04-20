@@ -75,6 +75,17 @@ app.post("/missing", function(req, res) {
   });
 });
 
+app.get("/missing", function(req, res) {
+ db.collection(MISSING_QUESTIONS_COLLECTION).find({}).toArray(function(err, result) {
+    if (err) {
+      console.log(err.message);
+      handleError(res, err.message, "No Answer");
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+
 
 /*  "/questions/:question"
  *    GET: find question by question
