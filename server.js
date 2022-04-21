@@ -46,19 +46,20 @@ app.get("/questions", function(req, res) {
   var question = req.query.question;
 
   if (!(question)) {
-    // handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
-    res.json({});
+    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+    // res.json({});
+    
+  } else {
 
+   db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
+      if (err) {
+        console.log(err.message);
+        handleError(res, err.message, "No Answer");
+      } else {
+        res.status(200).json(result);
+      }
+    });
   }
-
- db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
-    if (err) {
-      console.log(err.message);
-      handleError(res, err.message, "No Answer");
-    } else {
-      res.status(200).json(result);
-    }
-  });
 });
 
 app.post("/missing", function(req, res) {
