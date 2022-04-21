@@ -44,7 +44,7 @@ function handleError(res, reason, message, code) {
 
 app.get("/questions", function(req, res) {
   var question = req.query.question;
-  question.slice(0, -1);
+  console.log(question);
 
 
   if (!(question)) {
