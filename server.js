@@ -55,6 +55,7 @@ app.get("/questions", function(req, res) {
 
    db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
       if (err) {
+        console.log('fuck');
         console.log(err.message);
         handleError(res, err.message, "No Answer");
       } else {
