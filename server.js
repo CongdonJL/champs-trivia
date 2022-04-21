@@ -44,6 +44,8 @@ function handleError(res, reason, message, code) {
 
 app.get("/questions", function(req, res) {
   var question = req.query.question;
+  question.slice(0, -1);
+
 
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
@@ -64,6 +66,7 @@ app.get("/questions", function(req, res) {
 
 app.post("/missing", function(req, res) {
   var question = req.query.question;
+  question.slice(0, -1);
 
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
