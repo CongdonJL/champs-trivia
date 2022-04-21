@@ -44,15 +44,15 @@ function handleError(res, reason, message, code) {
 
 app.get("/questions", function(req, res) {
   var question = req.query.question;
-  console.log(question);
+  console.log(!question);
 
 
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
     // res.json({});
-    
+    console.log("if");
   } else {
-
+console.log('else');
    db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
       if (err) {
         console.log('fuck');
