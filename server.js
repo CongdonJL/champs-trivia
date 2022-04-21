@@ -46,7 +46,9 @@ app.get("/questions", function(req, res) {
   var question = req.query.question;
 
   if (!(question)) {
-    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+    // handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+    res.json({});
+
   }
 
  db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
