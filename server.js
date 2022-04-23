@@ -58,20 +58,22 @@ app.get("/questions", function(req, res) {
 });
 
 app.post("/missing", function(req, res) {
-  var question = req.query.question;
-  question.slice(0, -1);
+    return [];
 
-  if (!(question)) {
-    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
-  } else {
-    db.collection(MISSING_QUESTIONS_COLLECTION).insertOne({Question: question}, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new contact.");
-    } else {
-      res.status(201).json(doc.ops[0]);
-    }
-  });
-  }
+  // var question = req.query.question;
+  // question.slice(0, -1);
+
+  // if (!(question)) {
+  //   handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+  // } else {
+  //   db.collection(MISSING_QUESTIONS_COLLECTION).insertOne({Question: question}, function(err, doc) {
+  //   if (err) {
+  //     handleError(res, err.message, "Failed to create new contact.");
+  //   } else {
+  //     res.status(201).json(doc.ops[0]);
+  //   }
+  // });
+  // }
 });
 
 app.get("/missing", function(req, res) {
@@ -93,6 +95,9 @@ app.get("/missing", function(req, res) {
  */
 
 app.delete("/questions/:id", function(req, res) {
+  db.collectin('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
+    db.collectin('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
+  })
 });
 
 
