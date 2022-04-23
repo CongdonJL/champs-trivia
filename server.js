@@ -88,25 +88,3 @@ app.get("/missing", function(req, res) {
 });
 
 
-/*  "/questions/:question"
- *    GET: find question by question
- *    PUT: update question by question
- *    DELETE: deletes question by id
- */
-
-app.delete("/questions/:id", function(req, res) {
-  db.collection('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
-    db.collection('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
-  })
-});
-
-
-app.delete("/duplicates", function(req, res) {
-  db.collection('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
-    db.collection('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
-  })
-  res.status(200).json([]);
-});
-
-
-
