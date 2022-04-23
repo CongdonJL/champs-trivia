@@ -105,7 +105,7 @@ app.delete("/duplicates", function(req, res) {
   db.collection('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
     db.collection('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
   })
-  res.status(200).json(result);
+  res.status(200).json([]);
 });
 
 
