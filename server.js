@@ -95,15 +95,15 @@ app.get("/missing", function(req, res) {
  */
 
 app.delete("/questions/:id", function(req, res) {
-  db.collectin('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
-    db.collectin('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
+  db.collection('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
+    db.collection('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
   })
 });
 
 
-app.delete("/dupllicates", function(req, res) {
-  db.collectin('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
-    db.collectin('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
+app.delete("/duplicates", function(req, res) {
+  db.collectioncollection('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
+    db.collection('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
   })
 });
 
