@@ -101,5 +101,11 @@ app.delete("/questions/:id", function(req, res) {
 });
 
 
+app.delete("/dupllicates", function(req, res) {
+  db.collectin('QUESTIONS_COLLECTION').find({}, {Question:1}).sort({_id:1}).forEach(function(doc){
+    db.collectin('QUESTIONS_COLLECTION').remove({_id:{$gt:doc._id}, Question:doc.Question});
+  })
+});
+
 
 
