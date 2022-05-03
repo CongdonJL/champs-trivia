@@ -2,6 +2,7 @@ var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
+const fs = require('fs');
 var ObjectID = mongodb.ObjectID;
 
 var QUESTIONS_COLLECTION = "questionsCollection";
@@ -57,34 +58,106 @@ app.get("/questions", function(req, res) {
   }
 });
 
-app.post("/missing", function(req, res) {
-    return [];
+app.put("update", function(req, res) {
+  var question = req.query.question;
+  var answer = req.query.answer;
 
-  // var question = req.query.question;
-  // question.slice(0, -1);
+  
 
-  // if (!(question)) {
-  //   handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
-  // } else {
-  //   db.collection(MISSING_QUESTIONS_COLLECTION).insertOne({Question: question}, function(err, doc) {
+  return [];
+})
+
+//sheamus and cesaro
+//count out
+
+app.get("/missing", function(req, res) {
+    var answerToFind = 'Jinder';
+    var answerToReplace = 'Jinder Mahal';
+    
+    db.collection(QUESTIONS_COLLECTION).updateMany({Answer: answerToFind},{$set:{Answer:answerToReplace}});
+    res.status(200);
+
+
+
+
+  //   db.collection(QUESTIONS_COLLECTION).find({Answer: answerToFind}).toArray(function(err, result) {
   //   if (err) {
   //     handleError(res, err.message, "Failed to create new contact.");
   //   } else {
-  //     res.status(201).json(doc.ops[0]);
+  //     for(var key in result) {
+  //       result[key].Answer = answerToReplace;
+  //     }
+  //     db.collection(QUESTIONS_COLLECTION).find({Answer: answerToFind}).toArray(function(err, result) {
+
+  //     }
+  //     res.status(200).json(result);
   //   }
   // });
-  // }
-});
-
-app.get("/missing", function(req, res) {
- db.collection(MISSING_QUESTIONS_COLLECTION).find({}).toArray(function(err, result) {
-    if (err) {
-      console.log(err.message);
-      handleError(res, err.message, "No Answer");
-    } else {
-      res.status(200).json(result);
-    }
-  });
 });
 
 
+app.get("/missingQuestion", function(req, res) {
+    //What tag team moved from Raw to SmackDown during the 2021 WWE Draft?
+    var questionToFind = "What tag team moved from Raw to SmackDown during the 2021 WWE Draft?";
+    var questionToReplace = 'The Viking Raiders';
+    
+    db.collection(QUESTIONS_COLLECTION).updateMany({Question: questionToFind},{$set:{Answer:questionToReplace}}, function(err,r){
+          if (err) {
+            reject(err); 
+          }else{
+            resolve(r);
+          } 
+    });
+
+});
+
+app.get("/imageUpdate", function(req, res) {
+  // print('here');
+      var image = req.query.image;
+      console.log(image);
+      try {
+        db.collection(QUESTIONS_COLLECTION).insertOne({Question: image, flag: "true"});
+        // .then(response => response.json());
+      } catch (e) {
+        print(e);
+        console.log(e);
+        console.log(image);
+      }
+      
+});
+
+
+
+app.get("/update", function(req, res) {
+
+
+  let rawdata = fs.readFileSync('data.json');
+  let questions = JSON.parse(rawdata);
+  // console.log(questions.rows);
+  for (var key in questions.rows) {
+    rows = questions.rows;
+    // console.log(rows[key]);
+    // break;
+    db.collection(QUESTIONS_COLLECTION).update(
+       {Question: rows[key]['Question']},
+       {$set:{'Question': rows[key]['Question'], 'Answer': rows[key]['Answer']}},
+       { upsert: true}
+    )
+  }
+
+
+})
+
+// app.get("/missing", function(req, res) {
+//  db.collection(MISSING_QUESTIONS_COLLECTION).find({}).toArray(function(err, result) {
+//     if (err) {
+//       console.log(err.message);
+//       handleError(res, err.message, "No Answer");
+//     } else {
+//       res.status(200).json(result);
+//     }
+//   });
+// });
+
+
+  
