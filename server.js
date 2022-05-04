@@ -111,9 +111,25 @@ app.get("/missingQuestion", function(req, res) {
 
 });
 
-app.get("/imageUpdate", function(req, res) {
+// app.get("/imageUpdate", function(req, res) {
+//   // print('here');
+//       var image = req.query.image;
+//       console.log(image);
+//       try {
+//         db.collection(QUESTIONS_COLLECTION).insertOne({Question: image, flag: "true"});
+//         // .then(response => response.json());
+//       } catch (e) {
+//         print(e);
+//         console.log(e);
+//         console.log(image);
+//       }
+      
+// });
+
+app.post("/imageUpdate", function(req, res) {
   // print('here');
-      var image = req.query.image;
+      var image = req.query.question;
+
       console.log(image);
       try {
         db.collection(QUESTIONS_COLLECTION).insertOne({Question: image, flag: "true"});
