@@ -111,20 +111,20 @@ app.get("/missingQuestion", function(req, res) {
 
 });
 
-// app.get("/imageUpdate", function(req, res) {
-//   // print('here');
-//       var image = req.query.image;
-//       console.log(image);
-//       try {
-//         db.collection(QUESTIONS_COLLECTION).insertOne({Question: image, flag: "true"});
-//         // .then(response => response.json());
-//       } catch (e) {
-//         print(e);
-//         console.log(e);
-//         console.log(image);
-//       }
+app.get("/imageUpdate", function(req, res) {
+  // print('here');
+      var image = req.query.image;
+      console.log(image);
+      try {
+        db.collection(QUESTIONS_COLLECTION).insertOne({Question: image, flag: "true"});
+        // .then(response => response.json());
+      } catch (e) {
+        print(e);
+        console.log(e);
+        console.log(image);
+      }
       
-// });
+});
 
 app.post("/imageUpdate", function(req, res) {
   // print('here');
@@ -143,6 +143,21 @@ app.post("/imageUpdate", function(req, res) {
 });
 
 
+app.get("/user", function(req, res) {
+  // print('here');
+      var username = req.query.username;
+      try {
+        db.collection(QUESTIONS_COLLECTION).find({user: username}).toArray(function(err, result) {
+          if (err) {
+          } else {
+            res.status(200).json(result);
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      
+});
 
 app.get("/update", function(req, res) {
 
