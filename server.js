@@ -73,8 +73,6 @@ app.put("update", function(req, res) {
 app.get("/missing", function(req, res) {
   res.status(200).json('test');
 
-  echo "test";
-
     var answerToFind = 'Jinder';
     var answerToReplace = 'Jinder Mahal';
     
