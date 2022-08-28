@@ -71,7 +71,21 @@ app.put("update", function(req, res) {
 //count out
 
 app.get("/missing", function(req, res) {
-  res.status(200).json(req.query);
+  // res.status(200).json(req.query);
+
+    var question = req.query.question;
+
+    if (!(question)) {
+      handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+    } else {
+     db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
+        if (err) {
+        } else {
+          res.status(200).json(result);
+        }
+      });
+    }
+
 
     var answerToFind = 'Jinder';
     var answerToReplace = 'Jinder Mahal';
