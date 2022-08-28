@@ -71,7 +71,7 @@ app.put("update", function(req, res) {
 //count out
 
 app.get("/missing", function(req, res) {
-  res.status(200).json('test');
+  res.status(200).json(req);
 
     var answerToFind = 'Jinder';
     var answerToReplace = 'Jinder Mahal';
