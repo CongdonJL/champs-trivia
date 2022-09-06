@@ -58,6 +58,34 @@ app.get("/questions", function(req, res) {
   }
 });
 
+/*  "/questions"
+ *    GET: finds all questions
+ *    POST: creates a new question
+ */
+
+app.get("/addNewQuestion", function(req, res) {
+  var question = req.query.question;
+  var answer = req.query.answer;
+
+  if (!(question)) {
+    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+  } else {
+    const doc = {
+      Question: question,
+      Answer: answer,
+      Flag: true
+    }
+
+
+   db.collection(QUESTIONS_COLLECTION).insertOne(doc).(function(err, result) {
+      if (err) {
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  }
+});
+
 app.put("update", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
