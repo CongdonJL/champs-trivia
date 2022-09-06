@@ -76,13 +76,17 @@ app.post("/addNewQuestion", function(req, res) {
       Flag: true
     }
 
+   console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc));
 
-   db.collection(QUESTIONS_COLLECTION).insertOne(doc).toArray(function(err, result) {
-        if (err) {
-        } else {
-          res.status(200).json(result);
-        }
-      });
+  res.status(200);
+
+
+   // .toArray(function(err, result) {
+   //      if (err) {
+   //      } else {
+   //        res.status(200).json(result);
+   //      }
+   //    });
 });
 
 app.put("update", function(req, res) {
