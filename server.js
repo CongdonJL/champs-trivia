@@ -76,6 +76,8 @@ app.post("/addNewQuestion", function(req, res) {
       Flag: true
     }
 
+    console.log(doc);
+
    console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc));
 
   res.status(200);
