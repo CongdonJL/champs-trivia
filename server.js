@@ -81,22 +81,14 @@ app.post("/addNewQuestion", function(req, res) {
     console.log(doc);
 
 
-   console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
+   db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
           if (err) {
             reject(err); 
           }else{
             resolve(r);
           }
-
-
-   // .toArray(function(err, result) {
-   //      if (err) {
-   //      } else {
-   //        res.status(200).json(result);
-   //      }
-   //    });
-    });
- });
+    };
+  };
 
 app.put("update", function(req, res) {
   var question = req.query.question;
