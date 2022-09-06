@@ -81,7 +81,7 @@ app.post("/addNewQuestion", function(req, res) {
     // console.log(doc);
 
 
-   console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
+   db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
           if (err) {
             reject(err); 
           }else{
@@ -95,7 +95,7 @@ app.post("/addNewQuestion", function(req, res) {
    //        res.status(200).json(result);
    //      }
    //    });
-    });
+    };
  });
 
 app.put("update", function(req, res) {
