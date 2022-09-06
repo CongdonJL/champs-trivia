@@ -67,14 +67,14 @@ app.post("/addNewQuestion", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
 
-  if (!(question)) {
-    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
-  } else {
+  // if (!(question)) {
+  //   handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+  // } else {
     const doc = {
       Question: question,
       Answer: answer,
       Flag: true
-    }
+    // }
 
 
    db.collection(QUESTIONS_COLLECTION).insertOne(doc);
