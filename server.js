@@ -77,12 +77,7 @@ app.post("/addNewQuestion", function(req, res) {
     }
 
 
-   db.collection(QUESTIONS_COLLECTION).insertOne(doc).(function(err, result) {
-      if (err) {
-      } else {
-        res.status(200).json(result);
-      }
-    });
+   db.collection(QUESTIONS_COLLECTION).insertOne(doc);
   }
 });
 
