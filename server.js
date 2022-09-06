@@ -74,11 +74,11 @@ app.post("/addNewQuestion", function(req, res) {
       Question: question,
       Answer: answer,
       Flag: true
-    // }
+    }
 
 
    db.collection(QUESTIONS_COLLECTION).insertOne(doc);
-  }
+  // }
 });
 
 app.put("update", function(req, res) {
