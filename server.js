@@ -63,7 +63,7 @@ app.get("/questions", function(req, res) {
  *    POST: creates a new question
  */
 
-app.get("/addNewQuestion", function(req, res) {
+app.post("/addNewQuestion", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
 
