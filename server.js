@@ -86,7 +86,7 @@ app.post("/addNewQuestion", function(req, res) {
             reject(err); 
           }else{
             resolve(r);
-          }
+          } 
 
 
    // .toArray(function(err, result) {
