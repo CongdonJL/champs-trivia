@@ -67,6 +67,8 @@ app.post("/addNewQuestion", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
 
+  console.log(req.query);
+
   // if (!(question)) {
   //   handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
   // } else {
@@ -77,7 +79,7 @@ app.post("/addNewQuestion", function(req, res) {
     }
 
     console.log(doc);
-    
+
 
    console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc));
 
