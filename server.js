@@ -67,7 +67,7 @@ app.post("/addNewQuestion", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
 
-  console.log(req.query);
+  // console.log(req.query);
 
   // if (!(question)) {
   //   handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
@@ -78,17 +78,25 @@ app.post("/addNewQuestion", function(req, res) {
       Flag: true
     }
 
-    console.log(doc);
+    // console.log(doc);
 
 
-   db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
+   console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
           if (err) {
             reject(err); 
           }else{
             resolve(r);
           }
-    };
-  };
+
+
+   // .toArray(function(err, result) {
+   //      if (err) {
+   //      } else {
+   //        res.status(200).json(result);
+   //      }
+   //    });
+    });
+ });
 
 app.put("update", function(req, res) {
   var question = req.query.question;
