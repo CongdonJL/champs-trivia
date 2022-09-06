@@ -81,9 +81,12 @@ app.post("/addNewQuestion", function(req, res) {
     console.log(doc);
 
 
-   console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc));
-
-  res.status(200);
+   console.log(db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
+          if (err) {
+            reject(err); 
+          }else{
+            resolve(r);
+          }
 
 
    // .toArray(function(err, result) {
@@ -92,7 +95,8 @@ app.post("/addNewQuestion", function(req, res) {
    //        res.status(200).json(result);
    //      }
    //    });
-});
+    });
+ });
 
 app.put("update", function(req, res) {
   var question = req.query.question;
