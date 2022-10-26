@@ -52,18 +52,6 @@ app.get("/questions", function(req, res) {
    db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
       if (err) {
       } else {
-        if (result.length > 1) {
-            myobj = {
-              "Question": question,
-              "Answer": "",
-              "Flag": "Duplicate"
-            };
-
-            db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
-              if (err) throw err;
-              console.log("1 document inserted");
-            });
-        }
         if (result.length == 0){
             myobj = {
               "Question": question,
