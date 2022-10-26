@@ -46,9 +46,9 @@ function handleError(res, reason, message, code) {
 app.get("/questions", function(req, res) {
   var question = req.query.question;
   var ans1 = req.query.ans1;
-  var ans2 = req.query.ans1;
-  var ans3 = req.query.ans1;
-  var ans4 = req.query.ans1;
+  var ans2 = req.query.ans2;
+  var ans3 = req.query.ans3;
+  var ans4 = req.query.ans4;
 
 
   if (!(question)) {
