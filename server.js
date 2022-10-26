@@ -51,9 +51,9 @@ app.get("/questions", function(req, res) {
   } else {
    db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
       if (err) {
-        print('test');
+        console.log(54)
       } else {
-        print('here')
+        console.log(56)
         res.status(200).json(result);
       }
     });
