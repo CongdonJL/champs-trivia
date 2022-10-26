@@ -53,6 +53,7 @@ app.get("/questions", function(req, res) {
       if (err) {
         print('test');
       } else {
+        print('here')
         res.status(200).json(result);
       }
     });
