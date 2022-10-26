@@ -58,8 +58,9 @@ app.get("/questions", function(req, res) {
       if (err) {
       } else {
         if (result.length == 0){
+          console.log(question);
             myobj = {
-              "Question": question.question,
+              "Question": question,
               "Answer1": ans1,
               "Answer2": ans2,
               "Answer3": ans3,
