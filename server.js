@@ -60,7 +60,10 @@ app.get("/questions", function(req, res) {
         if (result.length == 0){
             myobj = {
               "Question": question.question,
-              "Answer": "",
+              "Answer1": ans1,
+              "Answer2": ans2,
+              "Answer3": ans3,
+              "Answer4": ans4,
               "Flag": "Missing"
             };
 
