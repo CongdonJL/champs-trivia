@@ -51,9 +51,20 @@ app.get("/questions", function(req, res) {
   } else {
    db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
       if (err) {
-        console.log(54)
       } else {
-        console.log(56)
+        if (result == []){
+            obj = {
+              "Question": "test",
+              "Answer": "",
+              "Flag": "Missing"
+            };
+            
+            dbo.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
+              if (err) throw err;
+              console.log("1 document inserted");
+              db.close();
+            });
+        }
         res.status(200).json(result);
       }
     });
