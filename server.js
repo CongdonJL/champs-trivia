@@ -54,7 +54,6 @@ app.get("/questions", function(req, res) {
       } else {
         console.log(result);
         if (result.length == 0){
-          console.log(56);
             myobj = {
               "Question": question,
               "Answer": "",
@@ -64,7 +63,6 @@ app.get("/questions", function(req, res) {
             db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
               if (err) throw err;
               console.log("1 document inserted");
-              db.close();
             });
         }
         res.status(200).json(result);
