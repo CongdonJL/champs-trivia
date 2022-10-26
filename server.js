@@ -61,7 +61,7 @@ app.get("/questions", function(req, res) {
               "Flag": "Missing"
             };
 
-            dbo.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
+            db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
               if (err) throw err;
               console.log("1 document inserted");
               db.close();
