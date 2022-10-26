@@ -55,8 +55,8 @@ app.get("/questions", function(req, res) {
         console.log(result);
         if (result.length == 0){
           console.log(56);
-            obj = {
-              "Question": "test",
+            myobj = {
+              "Question": question,
               "Answer": "",
               "Flag": "Missing"
             };
