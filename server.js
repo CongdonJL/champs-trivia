@@ -45,7 +45,7 @@ function handleError(res, reason, message, code) {
 
 app.get("/questions", function(req, res) {
   var question = req.query.question;
-  console.log(req.query.answers);
+  console.log(req.query.ans);
 
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
