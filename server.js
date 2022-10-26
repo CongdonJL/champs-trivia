@@ -52,13 +52,15 @@ app.get("/questions", function(req, res) {
    db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
       if (err) {
       } else {
+        console.log(result);
         if (result == []){
+          console.log(56);
             obj = {
               "Question": "test",
               "Answer": "",
               "Flag": "Missing"
             };
-            
+
             dbo.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
               if (err) throw err;
               console.log("1 document inserted");
