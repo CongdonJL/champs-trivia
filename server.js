@@ -53,7 +53,7 @@ app.get("/questions", function(req, res) {
       if (err) {
       } else {
         console.log(result);
-        if (result == []){
+        if (result.length == 0){
           console.log(56);
             obj = {
               "Question": "test",
