@@ -125,7 +125,7 @@ app.get("/missing", function(req, res) {
     if (!(question)) {
       handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
     } else {
-     db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
+     db.collection(QUESTIONS_COLLECTION).find({Flag: "Missing"}).toArray(function(err, result) {
         if (err) {
         } else {
           res.status(200).json(result);
@@ -133,7 +133,7 @@ app.get("/missing", function(req, res) {
       });
     }
 
-    db.collection(QUESTIONS_COLLECTION).deleteMany({Flag: "Missing", "Answer1": null});
+    // db.collection(QUESTIONS_COLLECTION).deleteMany({Flag: "Missing", "Answer1": null});
 
 
     // var answerToFind = 'Jinder';
