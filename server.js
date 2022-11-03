@@ -58,7 +58,6 @@ app.get("/questions", function(req, res) {
       if (err) {
       } else {
         if (result.length == 0){
-          console.log(question);
             myobj = {
               "Question": question,
               "Answer1": ans1,
@@ -134,11 +133,13 @@ app.get("/missing", function(req, res) {
       });
     }
 
+    db.collection(QUESTIONS_COLLECTION).deleteMany({Flag: "Missing", "Answer1": null});
 
-    var answerToFind = 'Jinder';
-    var answerToReplace = 'Jinder Mahal';
+
+    // var answerToFind = 'Jinder';
+    // var answerToReplace = 'Jinder Mahal';
     
-    db.collection(QUESTIONS_COLLECTION).updateMany({Answer: answerToFind},{$set:{Answer:answerToReplace}});
+    // db.collection(QUESTIONS_COLLECTION).updateMany({Answer: answerToFind},{$set:{Answer:answerToReplace}});
     res.status(200);
 
 
