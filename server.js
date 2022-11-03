@@ -118,46 +118,16 @@ app.put("update", function(req, res) {
 //count out
 
 app.get("/missing", function(req, res) {
-  // res.status(200).json(req.query);
-
-    var question = req.query.question;
-
-    if (!(question)) {
-      handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
-    } else {
+  
      db.collection(QUESTIONS_COLLECTION).find({Flag: "Missing"}).toArray(function(err, result) {
         if (err) {
         } else {
           res.status(200).json(result);
         }
       });
-    }
 
-    // db.collection(QUESTIONS_COLLECTION).deleteMany({Flag: "Missing", "Answer1": null});
-
-
-    // var answerToFind = 'Jinder';
-    // var answerToReplace = 'Jinder Mahal';
-    
-    // db.collection(QUESTIONS_COLLECTION).updateMany({Answer: answerToFind},{$set:{Answer:answerToReplace}});
     res.status(200);
 
-
-
-
-  //   db.collection(QUESTIONS_COLLECTION).find({Answer: answerToFind}).toArray(function(err, result) {
-  //   if (err) {
-  //     handleError(res, err.message, "Failed to create new contact.");
-  //   } else {
-  //     for(var key in result) {
-  //       result[key].Answer = answerToReplace;
-  //     }
-  //     db.collection(QUESTIONS_COLLECTION).find({Answer: answerToFind}).toArray(function(err, result) {
-
-  //     }
-  //     res.status(200).json(result);
-  //   }
-  // });
 });
 
 
