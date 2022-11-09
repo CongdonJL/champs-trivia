@@ -49,10 +49,6 @@ app.get("/questions", function(req, res) {
   var ans2 = req.query.ans2;
   var ans3 = req.query.ans3;
   var ans4 = req.query.ans4;
-  var state
-  if (req.query.state) {
-    state =  = req.query.state;
-  }
 
 
   if (!(question)) {
@@ -61,7 +57,7 @@ app.get("/questions", function(req, res) {
    db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
       if (err) {
       } else {
-        if (result.length == 0 || state == "fix"){
+        if (result.length == 0){
             myobj = {
               "Question": question,
               "Answer1": ans1,
@@ -71,16 +67,11 @@ app.get("/questions", function(req, res) {
               "Flag": "Missing"
             };
 
-            if (state == "fix") {
-              myobj.Flag == "Fix"
-            }
-
             db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
               if (err) throw err;
               console.log("1 document inserted");
             });
         }
-
         res.status(200).json(result);
       }
     });
