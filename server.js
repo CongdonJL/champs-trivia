@@ -3,6 +3,8 @@ var path = require("path");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 const fs = require('fs');
+var request = require('request');
+
 var ObjectID = mongodb.ObjectID;
 
 const cors = require('cors');
@@ -249,22 +251,35 @@ result =  {"status":"success","statusCode":200,"data":{"energyCost":0,"reward":1
 app.post("/trivia", function(req, res) {
 
 
-result =  {
-  "status": "success",
-  "statusCode": 200,
-  "data": {
-    "gameId": 11268749,
-    "config": {
-      "energyCost": 0,
-      "numberOfQuestions": 5,
-      "questionTime": 10,
-      "retryCountDown": 5
-    }
-  }
-};
 
-  res.set('Access-Control-Allow-Origin', '*');
-  res.status(200).json(result);
+request.post(
+    'https://api.wwechampions.com/api/v1/trivia',
+    { },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.status(200).json(body);
+        }
+    }
+);
+
+
+// result =  {
+//   "status": "success",
+//   "statusCode": 200,
+//   "data": {
+//     "gameId": 11268749,
+//     "config": {
+//       "energyCost": 0,
+//       "numberOfQuestions": 5,
+//       "questionTime": 10,
+//       "retryCountDown": 5
+//     }
+//   }
+// };
+
+//   res.set('Access-Control-Allow-Origin', '*');
+//   res.status(200).json(result);
 
 })
 
