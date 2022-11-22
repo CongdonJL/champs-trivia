@@ -7,7 +7,7 @@ var ObjectID = mongodb.ObjectID;
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'https://wwechampions.com/',  
+    origin:'*',  
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
