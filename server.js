@@ -7,7 +7,7 @@ var ObjectID = mongodb.ObjectID;
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'https://champs-trivia.herokuapp.com/',  
+    origin:'https://wwechampions.com/',  
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
