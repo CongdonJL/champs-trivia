@@ -256,7 +256,7 @@ result =  {
     "gameId": 11268749,
     "config": {
       "energyCost": 0,
-      "numberOfQuestions": 1,
+      "numberOfQuestions": 5,
       "questionTime": 10,
       "retryCountDown": 5
     }
