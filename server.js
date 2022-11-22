@@ -246,7 +246,7 @@ result =  {"status":"success","statusCode":200,"data":{"energyCost":0,"reward":1
 
 
 
-app.get("/trivia", function(req, res) {
+app.post("/trivia", function(req, res) {
 
 
 result =  {
