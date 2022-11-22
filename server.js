@@ -229,7 +229,7 @@ app.get("/update", function(req, res) {
 app.get("/energyCost", function(req, res) {
 
 
-return {"status":"success","statusCode":200,"data":{"status":"available"}};
+return json({"status":"success","statusCode":200,"data":{"energyCost":1,"reward":100}});
 
 })
 
