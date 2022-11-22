@@ -246,6 +246,33 @@ result =  {"status":"success","statusCode":200,"data":{"energyCost":0,"reward":1
 
 
 
+app.get("/trivia", function(req, res) {
+
+
+result =  {
+  "status": "success",
+  "statusCode": 200,
+  "data": {
+    "gameId": 11268749,
+    "config": {
+      "energyCost": 0,
+      "numberOfQuestions": 1,
+      "questionTime": 10,
+      "retryCountDown": 5
+    }
+  }
+};
+
+  res.set('Access-Control-Allow-Origin', '*');
+  res.status(200).json(result);
+
+})
+
+
+
+
+
+
 
 
 
