@@ -230,6 +230,7 @@ app.get("/energyCost", function(req, res) {
 
 
 result =  {"status":"success","statusCode":200,"data":{"energyCost":0,"reward":100}};
+  res.set('Access-Control-Allow-Origin', '*');
   res.status(200).json(result);
 
 })
