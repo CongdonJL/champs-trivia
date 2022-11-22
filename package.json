@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "permissions" : [
+    "webRequest",
+    "*://*.wwechampions.com/"
+  ],
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",

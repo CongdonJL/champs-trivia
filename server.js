@@ -225,6 +225,27 @@ app.get("/update", function(req, res) {
 
 })
 
+
+app.get("/energyCost", function(req, res) {
+
+
+return {
+  "status": "success",
+  "statusCode": 200,
+  "data": {
+    "energyCost": 0,
+    "reward": 100
+    }
+  };
+
+})
+
+
+
+
+
+
+
 // app.get("/missing", function(req, res) {
 //  db.collection(MISSING_QUESTIONS_COLLECTION).find({}).toArray(function(err, result) {
 //     if (err) {
