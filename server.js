@@ -257,7 +257,7 @@ request({
       'sessionToken': sessionToken,
     },
     uri: 'https://api.wwechampions.com/api/v1/trivia',
-    body: {''},
+    body: {},
     method: 'POST',
     json: true
   }, function (err, res, body) {
@@ -268,6 +268,7 @@ request({
     }
     //it works!
     console.log(res)
+     return 'yes'
   });
 // console.log(req, res);
 
