@@ -263,8 +263,6 @@ request({
   }, function (err, res, body) {
     if (err) {
       console.log(err);
-      console.log(res);
-      console.log(body);
     }
     //it works!
     console.log(res)
