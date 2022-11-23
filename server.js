@@ -252,20 +252,33 @@ app.get("/trivia", function(req, res) {
   var sessionToken = req.query.sessionToken;
 
 
-request.post(
-    'https://api.wwechampions.com/api/v1/trivia',
-    { },
-    function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body);
-            res.set('sessionToken', sessionToken)
-            // res.status(200).json(body);
+request({
+    headers: {
+      'sessionToken': sessionToken,
+    },
+    uri: 'https://api.wwechampions.com/api/v1/trivia',
+    body: {},
+    method: 'POST'
+  }, function (err, res, body) {
+    //it works!
+    console.log(res)
+  });
 
-        }
-    }
-);
 
-            console.log(res)
+// request.post(
+//     'https://api.wwechampions.com/api/v1/trivia',
+//     { },
+//     function (error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             console.log(body);
+//             res.set('sessionToken', sessionToken)
+//             // res.status(200).json(body);
+
+//         }
+//     }
+// );
+
+//             console.log(res)
 
 // result =  {
 //   "status": "success",
