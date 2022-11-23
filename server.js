@@ -278,7 +278,11 @@ request.post(
             console.log(body);
             res.set('sessionToken', sessionToken)
             // res.status(200).json(body);
+        }
 
+        if (err) {
+          console.log(err);
+          console.log(response);
         }
     }
 );
