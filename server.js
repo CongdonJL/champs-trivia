@@ -257,8 +257,9 @@ request({
       'sessionToken': sessionToken,
     },
     uri: 'https://api.wwechampions.com/api/v1/trivia',
-    body: {},
-    method: 'POST'
+    body: {''},
+    method: 'POST',
+    json: true
   }, function (err, res, body) {
     if (err) {
       console.log(err);
