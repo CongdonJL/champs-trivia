@@ -249,7 +249,7 @@ result =  {"status":"success","statusCode":200,"data":{"energyCost":0,"reward":1
 
 
 app.get("/trivia", function(req, res) {
-
+  var sessionToken = req.query.sessionToken;
 
 
 request.post(
@@ -258,6 +258,7 @@ request.post(
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
+            res.set('sessionToken', sessionToken)
             res.status(200).json(body);
         }
     }
