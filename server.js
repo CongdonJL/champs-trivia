@@ -253,7 +253,7 @@ app.get("/trivia", function(req, res) {
 
 
 
-var request = require('request');
+// var request = require('request');
 var options = {
   'method': 'POST',
   'url': 'https://api.wwechampions.com/api/v1/trivia',
