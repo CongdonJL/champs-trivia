@@ -252,7 +252,7 @@ app.get("/trivia", function(req, res) {
   var sessionToken = req.query.sessionToken;
 
 
-
+console.log("session: "+ sessionToken )
 // var request = require('request');
 var options = {
   'method': 'POST',
