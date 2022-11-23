@@ -268,7 +268,7 @@ app.get("/trivia", function(req, res) {
 //     //it works!
 //     console.log(res)
 //   });
-
+console.log(req, res);
 
 request.post(
     'https://api.wwechampions.com/api/v1/trivia',
@@ -280,8 +280,8 @@ request.post(
             // res.status(200).json(body);
         }
 
-        if (err) {
-          console.log(err);
+        if (error) {
+          console.log(error);
           console.log(response);
         }
     }
