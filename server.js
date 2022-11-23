@@ -259,7 +259,7 @@ request.post(
         if (!error && response.statusCode == 200) {
             console.log(body);
             res.set('sessionToken', sessionToken)
-            res.status(200).json(body);
+            // res.status(200).json(body);
         }
     }
 );
