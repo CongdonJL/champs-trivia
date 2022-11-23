@@ -261,11 +261,11 @@ request.post(
             res.set('sessionToken', sessionToken)
             // res.status(200).json(body);
 
-            console.log(res)
         }
     }
 );
 
+            console.log(res)
 
 // result =  {
 //   "status": "success",
