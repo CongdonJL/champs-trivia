@@ -189,7 +189,7 @@ app.post("/imageUpdate", function(req, res) {
 });
 
 
-app.get("/user", function(req, res) {
+app.get("/user", function(req, res) { 
   // print('here');
       var username = req.query.username;
       try {
