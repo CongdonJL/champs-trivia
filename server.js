@@ -7,20 +7,12 @@ var request = require('request');
 
 var ObjectID = mongodb.ObjectID;
 
-const cors = require('cors');
-const corsOptions ={
-    origin:'*',  
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-
 var QUESTIONS_COLLECTION = "questionsCollection";
 var MISSING_QUESTIONS_COLLECTION = "missingQuestionsCollection";
 
 
 var app = express();
 
-app.use(cors(corsOptions));
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
@@ -41,7 +33,19 @@ MongoClient.connect(uri, function(err, client) {
   });
 });
 
-// questions API ROUTES BELOW
+
+
+
+
+
+
+
+
+/********************
+ *   
+ *  API ROUTES BELOW
+ *
+ ********************/
 
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
@@ -49,9 +53,11 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
+
 /*  "/questions"
- *    GET: finds all questions
- *    POST: creates a new question
+ *    GET: finds all questions - Adds missing Questions 
+ *     
+ *    To Be depreciated. 
  */
 
 app.get("/questions", function(req, res) {
@@ -89,44 +95,11 @@ app.get("/questions", function(req, res) {
   }
 });
 
-/*  "/questions"
- *    GET: finds all questions
- *    POST: creates a new question
+/*  "/missing"
+ *    GET: finds all missingquestions 
+ *     
+ *    To Be depreciated. 
  */
-
-app.get("/newQuestion", function(req, res) {
-  var question = req.query.fixQuestion;
-  var answer = req.query.answer;
-
-    const doc = {
-      Question: question,
-      Answer: answer,
-      Flag: true
-    }
-
-    // console.log(doc);
-
-
-   db.collection(QUESTIONS_COLLECTION).insertOne(doc), function(err,r){
-      if (err) {
-        reject(err); 
-      }else{
-        resolve(r);
-      } 
-    };
- });
-
-app.put("update", function(req, res) {
-  var question = req.query.question;
-  var answer = req.query.answer;
-
-  
-
-  return [];
-})
-
-//sheamus and cesaro
-//count out
 
 app.get("/missing", function(req, res) {
   
@@ -142,53 +115,14 @@ app.get("/missing", function(req, res) {
 });
 
 
-app.get("/missingQuestion", function(req, res) {
-    //What tag team moved from Raw to SmackDown during the 2021 WWE Draft?
-    var questionToFind = "What tag team moved from Raw to SmackDown during the 2021 WWE Draft?";
-    var questionToReplace = 'The Viking Raiders';
-    
-    db.collection(QUESTIONS_COLLECTION).updateMany({Question: questionToFind},{$set:{Answer:questionToReplace}}, function(err,r){
-          if (err) {
-            reject(err); 
-          }else{
-            resolve(r);
-          } 
-    });
 
-});
 
-app.get("/imageUpdate", function(req, res) {
-  // print('here');
-      var image = req.query.image;
-      console.log(image);
-      try {
-        db.collection(QUESTIONS_COLLECTION).insertOne({Question: image, flag: "true"});
-        // .then(response => response.json());
-      } catch (e) {
-        print(e);
-        console.log(e);
-        console.log(image);
-      }
-      
-});
 
-app.post("/imageUpdate", function(req, res) {
-  // print('here');
-      var image = req.query.question;
-
-      console.log(image);
-      try {
-        db.collection(QUESTIONS_COLLECTION).insertOne({Question: image, flag: "true"});
-        // .then(response => response.json());
-      } catch (e) {
-        print(e);
-        console.log(e);
-        console.log(image);
-      }
-      
-});
-
- 
+ /*  "/user"
+ *    GET: Checks User Authentication
+ *     
+ *    To Be Moved to new collection. 
+ */
 app.get("/user", function(req, res) { 
   // print('here');
       var username = req.query.username;
@@ -215,137 +149,5 @@ app.get("/user", function(req, res) {
       }
       
 });
-
-app.get("/update", function(req, res) {
-
-
-  let rawdata = fs.readFileSync('data.json');
-  let questions = JSON.parse(rawdata);
-  // console.log(questions.rows);
-  for (var key in questions.rows) {
-    rows = questions.rows;
-    // console.log(rows[key]);
-    // break;
-    db.collection(QUESTIONS_COLLECTION).update(
-       {Question: rows[key]['Question']},
-       {$set:{'Question': rows[key]['Question'], 'Answer': rows[key]['Answer']}},
-       { upsert: true}
-    )
-  }
- 
-
-})
-
-
-app.get("/energyCost", function(req, res) {
-
-
-result =  {"status":"success","statusCode":200,"data":{"energyCost":0,"reward":100}};
-  res.set('Access-Control-Allow-Origin', '*');
-  res.status(200).json(result);
-
-})
-
-
-
-app.get("/trivia", function(req, res) {
-  var sessionToken = req.query.sessionToken;
-
-
-console.log("session: "+ sessionToken )
-// var request = require('request');
-var options = {
-  'method': 'POST',
-  'url': 'https://api.wwechampions.com/api/v1/trivia',
-  'headers': {
-    'sessionToken': sessionToken
-  }
-};
-request(options, function (error, response) {
-  if (error) throw new Error(error);
-  console.log(response.body);
-});
-
-
-
-
-
-
-// request({
-//     headers: {
-//       'sessionToken': sessionToken,
-//     },
-//     uri: 'https://api.wwechampions.com/api/v1/trivia',
-//     body: {},
-//     method: 'POST',
-//     json: true
-//   }, function (err, res, body) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     //it works!
-//     console.log(res)
-//      return 'yes'
-//   });
-// console.log(req, res);
-
-// request.post(
-//     'https://api.wwechampions.com/api/v1/trivia',
-//     { },
-//     function (error, response, body) {
-//         if (!error && response.statusCode == 200) {
-//             console.log(body);
-//             res.set('sessionToken', sessionToken)
-//             // res.status(200).json(body);
-//         }
-
-//         if (error) {
-//           console.log(error);
-//           console.log(response);
-//         }
-//     }
-// );
-
-//             console.log(res)
-
-// result =  {
-//   "status": "success",
-//   "statusCode": 200,
-//   "data": {
-//     "gameId": 11268749,
-//     "config": {
-//       "energyCost": 0,
-//       "numberOfQuestions": 5,
-//       "questionTime": 10,
-//       "retryCountDown": 5
-//     }
-//   }
-// };
-
-//   res.set('Access-Control-Allow-Origin', '*');
-//   res.status(200).json(result);
-
-})
-
-
-
-
-
-
-
-
-
-
-// app.get("/missing", function(req, res) {
-//  db.collection(MISSING_QUESTIONS_COLLECTION).find({}).toArray(function(err, result) {
-//     if (err) {
-//       console.log(err.message);
-//       handleError(res, err.message, "No Answer");
-//     } else {
-//       res.status(200).json(result);
-//     }
-//   });
-// });
-
 
   
