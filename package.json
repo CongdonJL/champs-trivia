@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install",
-    
     "start": "node server.js"
   },
   "permissions": [
@@ -17,9 +16,7 @@
     "body-parser": "^1.13.3",
     "cors": "^2.8.5",
     "express": "^4.13.3",
-    "mongodb": "^2.1.6",
+    "mongodb": "^4.12.1",
     "request": "^2.88.2"
   }
 }
-
-
