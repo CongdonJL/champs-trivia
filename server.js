@@ -7,12 +7,20 @@ var request = require('request');
 
 var ObjectID = mongodb.ObjectID;
 
+const cors = require('cors');
+const corsOptions ={
+    origin:'*',  
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+
 var QUESTIONS_COLLECTION = "questionsCollection";
 var MISSING_QUESTIONS_COLLECTION = "missingQuestionsCollection";
 
 
 var app = express();
 
+app.use(cors(corsOptions));
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
@@ -32,8 +40,6 @@ MongoClient.connect(uri, function(err, client) {
     console.log("App now running on port", port); 
   });
 });
-
-
 
 
 
