@@ -106,7 +106,7 @@ app.post("/v2/questions", function(req, res) {
         res.send('success')
       });
     } catch (e) {
-        print (e);
+        console.log(e);
         res.send('fail')
     };
 
