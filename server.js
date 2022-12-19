@@ -54,6 +54,55 @@ function handleError(res, reason, message, code) {
 }
 
 
+/*  "/v2/questions"
+ *    GET: find question
+ *     
+ *      If Question Found - return Answer
+ *      If Not Found - return empty array
+ */
+
+app.get("/v2/questions", function(req, res) {
+  var question = req.query.question;
+  
+  if (!(question)) {
+    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+  } else {
+   db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
+    res.status(200).json(result);
+   });
+ }
+});
+
+/*  "/v2/questions"
+ *    POST: Add question
+ *     
+ *      
+ *      Adds Questions to Database
+ */
+
+app.post("/v2/questions", function(req, res) {
+  var question = req.query.question;
+  var answer = req.query.answer;
+
+  console.log(question + " " + answer);
+
+
+  if (result.length == 0){
+    myobj = {
+      "Question": question,
+      "Answer": answer,
+    };
+
+    db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
+      if (err) throw err;
+      console.log("1 document inserted");
+      console.log(question);
+    });
+  }
+
+});
+
+
 /*  "/questions"
  *    GET: finds all questions - Adds missing Questions 
  *     
