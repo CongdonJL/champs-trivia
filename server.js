@@ -7,31 +7,23 @@ var request = require('request');
 
 var ObjectID = mongodb.ObjectID;
 
-const cors = require('cors');
-const corsOptions ={
-    origin:'*',  
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-
 var QUESTIONS_COLLECTION = "questionsCollection";
 var MISSING_QUESTIONS_COLLECTION = "missingQuestionsCollection";
 
-
 var app = express();
 
-app.use(cors(corsOptions));
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
 var db;
-var MongoClient = require('mongodb').MongoClient;
-var uri = "mongodb://JCongdon:IVUThQCCmnoXUeHe@cluster0-shard-00-00.faa1c.mongodb.net:27017,cluster0-shard-00-01.faa1c.mongodb.net:27017,cluster0-shard-00-02.faa1c.mongodb.net:27017/questions?ssl=true&replicaSet=atlas-b9yuoo-shard-0&authSource=admin&retryWrites=true&w=majority";
-MongoClient.connect(uri, function(err, client) {
-  const collection = client.db("questions").collection("questionsCollection");
 
-  // Save database object from the callback for reuse.
-  db = client;
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://JCongdon:IVUThQCCmnoXUeHe@cluster0.faa1c.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("questions").collection("questionsCollection");
+  db = collection
+
   console.log("Database connection ready");
 
   // Initialize the app
@@ -39,7 +31,8 @@ MongoClient.connect(uri, function(err, client) {
     var port = server.address().port;
     console.log("App now running on port", port); 
   });
-});
+});   
+
 
 
 
@@ -71,9 +64,9 @@ app.get("/v2/questions", function(req, res) {
   var question = req.query.question;
   
   if (!(question)) {
-    handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
+    handleError(res, "Invalid user input", "Must provide a question.", 400);
   } else {
-   db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
+   db.find({Question: question}).toArray(function(err, result) {
     res.status(200).json(result);
    });
  }
@@ -90,22 +83,28 @@ app.post("/v2/questions", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
 
-  console.log(question + " " + answer);
 
-
-  if (result.length == 0){
+  // if (result.length == 0){
     myobj = {
       "Question": question,
       "Answer": answer,
     };
 
-    db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
-      if (err) throw err;
-      console.log("1 document inserted");
-      console.log(question);
-    });
-  }
+    try {
+      req = db.insertOne(myobj, function(err, result) {
+        if (err) {
+          throw err;
+        }
+        console.log("1 document inserted");
+        console.log(question);
+        console.log(result);
+      });
+    } catch (e) {
+        print (e);
+    };
 
+  
+    res.send('success')
 });
 
 
@@ -126,7 +125,7 @@ app.get("/questions", function(req, res) {
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question and answer.", 400);
   } else {
-   db.collection(QUESTIONS_COLLECTION).find({Question: question}).toArray(function(err, result) {
+   db.find({Question: question}).toArray(function(err, result) {
       if (err) {
       } else {
         if (result.length == 0){
@@ -139,7 +138,7 @@ app.get("/questions", function(req, res) {
               "Flag": "Missing"
             };
 
-            db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
+            db.insertOne(myobj, function(err, res) {
               if (err) throw err;
               console.log("1 document inserted");
             });
@@ -157,8 +156,7 @@ app.get("/questions", function(req, res) {
  */
 
 app.get("/missing", function(req, res) {
-  
-     db.collection(QUESTIONS_COLLECTION).find({Flag: "Missing"}).toArray(function(err, result) {
+     db.find({Flag: "Missing"}).toArray(function(err, result) {
         if (err) {
         } else {
           res.status(200).json(result);
@@ -182,7 +180,7 @@ app.get("/user", function(req, res) {
   // print('here');
       var username = req.query.username;
       try {
-        db.collection(QUESTIONS_COLLECTION).find({user: username}).toArray(function(err, result) {
+        db.find({user: username}).toArray(function(err, result) {
           if (err) {
           } else {
             if (result.length == 0){
@@ -191,7 +189,7 @@ app.get("/user", function(req, res) {
               "approved": null,
             };
 
-            db.collection(QUESTIONS_COLLECTION).insertOne(myobj, function(err, res) {
+            db.insertOne(myobj, function(err, res) {
               if (err) throw err;
               console.log("1 document inserted");
             });
