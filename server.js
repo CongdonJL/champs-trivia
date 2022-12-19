@@ -5,6 +5,9 @@ var mongodb = require("mongodb");
 const fs = require('fs');
 var request = require('request');
 
+
+var qs = require('querystring');
+
 var ObjectID = mongodb.ObjectID;
 
 var QUESTIONS_COLLECTION = "questionsCollection";
@@ -79,6 +82,8 @@ app.get("/v2/questions", function(req, res) {
  *      Adds Questions to Database
  */
 
+
+
 app.post("/v2/questions", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
@@ -98,13 +103,14 @@ app.post("/v2/questions", function(req, res) {
         console.log("1 document inserted");
         console.log(question);
         console.log(result);
+        res.send('success')
       });
     } catch (e) {
         print (e);
+        res.send('fail')
     };
 
   
-    res.send('success')
 });
 
 
