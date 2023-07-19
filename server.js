@@ -214,25 +214,22 @@ app.get("/user", function(req, res) {
 });
 
  /*  "/user"
- *    GET: Checks User Authentication
+ *    POST: Checks User Authentication
  *     
  *    To Be Moved to new collection. 
  */
 app.post("/user", function(req, res) { 
       var username = req.query.username;
       try {
-         if (result.length == 0){
-            myobj = {
-              "user": username,
-              "approved": true,
-            };
+          myobj = {
+            "user": username,
+            "approved": true,
+          };
 
-            db.insertOne(myobj, function(err, res) {
-              if (err) throw err;
-              console.log("1 document inserted");
-            });
-
-          }
+          db.insertOne(myobj, function(err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+          });
 
       } catch (e) {
         console.log(e); 
