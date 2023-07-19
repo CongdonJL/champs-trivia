@@ -229,6 +229,8 @@ app.post("/user", function(req, res) {
           db.insertOne(myobj, function(err, res) {
             if (err) throw err;
             console.log("1 document inserted");
+
+            res.status(200).json(result);
           });
 
       } catch (e) {
