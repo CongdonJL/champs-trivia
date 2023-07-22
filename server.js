@@ -223,7 +223,7 @@ app.post("/user", function(req, res) {
       try {
           myobj = {
             "user": username,
-            "approved": true,
+            "approved": "true",
           };
 
           db.insertOne(myobj, function(err, res) {
