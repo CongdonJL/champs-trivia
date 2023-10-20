@@ -74,6 +74,7 @@ app.get("/v2/questions", function(req, res) {
     handleError(res, "Invalid user input", "Must provide a question.", 400);
   } else {
    db.find({Question: question}).toArray(function(err, result) {
+    console.log(result);
     res.status(200).json(result);
    });
  }
