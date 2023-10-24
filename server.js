@@ -69,6 +69,9 @@ function handleError(res, reason, message, code) {
 
 app.get("/v2/questions", function(req, res) {
   var question = req.query.question;
+
+  updated = question.replace('&', 'and');
+  console.log(updated);
   // console.log(question);
   // question = encodeURIComponent(question);
   // console.log(question)
