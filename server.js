@@ -69,11 +69,13 @@ function handleError(res, reason, message, code) {
 
 app.get("/v2/questions", function(req, res) {
   var question = req.query.question;
+  console.log(question);
   
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question.", 400);
   } else {
    db.find({Question: question}).toArray(function(err, result) {
+    cosole.log(result);
     res.status(200).json(result);
    });
  }
