@@ -92,6 +92,8 @@ app.post("/v2/questions", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
 
+  console.log(question);
+
   // if (result.length == 0){
     myobj = {
       "Question": question,
