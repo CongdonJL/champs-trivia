@@ -71,6 +71,7 @@ app.get("/v2/questions", function(req, res) {
   var question = req.query.question;
 
   updated = question.replace('&', 'and');
+  console.log(question);
   console.log(updated);
   // console.log(question);
   // question = encodeURIComponent(question);
@@ -79,7 +80,7 @@ app.get("/v2/questions", function(req, res) {
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question.", 400);
   } else {
-   db.find({Question: question}).toArray(function(err, result) {
+   db.find({Question: updated}).toArray(function(err, result) {
     res.status(200).json(result);
    });
  }
@@ -98,10 +99,13 @@ app.post("/v2/questions", function(req, res) {
   var question = req.query.question;
   var answer = req.query.answer;
 
+  updated = question.replace('&', 'and');
+  console.log(updated);
+
 
   // if (result.length == 0){
     myobj = {
-      "Question": question,
+      "Question": updated,
       "Answer": answer,
     };
 
@@ -111,8 +115,8 @@ app.post("/v2/questions", function(req, res) {
           throw err;
         }
         console.log("1 document inserted");
-        console.log(question);
-        console.log(result);
+        console.log(updated);
+        // console.log(result);
         res.send('success')
       });
     } catch (e) {
