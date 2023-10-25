@@ -73,9 +73,6 @@ app.get("/v2/questions", function(req, res) {
   updated = question.replace('&', 'and');
   console.log(question);
   console.log(updated);
-  // console.log(question);
-  // question = encodeURIComponent(question);
-  // console.log(question)
   
   if (!(question)) {
     handleError(res, "Invalid user input", "Must provide a question.", 400);
@@ -214,6 +211,7 @@ app.get("/user", function(req, res) {
               console.log("1 document inserted");
             });
         }
+        console.log(username);
         res.status(200).json(result);
           }
         });
